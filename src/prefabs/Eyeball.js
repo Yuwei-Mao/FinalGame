@@ -15,7 +15,7 @@ class Eyeball extends Phaser.Physics.Arcade.Sprite {
         this.rangeB = this.x + 64;
 
         //set moveVelocity
-        this.initialVelocity = 20 + 20*Math.random();
+        this.initialVelocity = 20 + 20*Math.random() + level;
         this.moveVelocity = -this.initialVelocity;
 
         //set destroyed

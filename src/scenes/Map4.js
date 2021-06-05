@@ -38,7 +38,6 @@ class Map4 extends Phaser.Scene {
         this.hero = new Hero(this,p1Spawn.x, p1Spawn.y, 'hero', 0);
 
         // spawn monster
-        this.monsterKilled = 0;
         this.rm1 = Math.round(Math.random()*2);
         if (this.rm1 == 0){
             const m1Spawn = map.findObject('Spawns', obj=> obj.name === 'm1Spawn');
@@ -121,11 +120,12 @@ class Map4 extends Phaser.Scene {
         this.lifeText = this.add.bitmapText(5, 5, 'gem', 'Life: '+hp, 30).setOrigin(0,0).setTint(0xee2c79);
         
         // add drops
-        this.heart1 = new Drop(this,-10,-10,'heart',0);
-        this.key1 = new Drop(this,-30,-10,'key',0);
-        this.range1 = new Drop(this,-70,-10,'range',0);
-        this.medicine1 = new Drop(this,-110,-10,'medicine',0);
-        this.shield1 = new Drop(this,-140,-10,'shield',0);
+        this.heart1 = new Drop(this,-50,-50,'heart',0);
+        this.key1 = new Drop(this,-50,-50,'key',0);
+        this.range1 = new Drop(this,-50,-50,'range',0);
+        this.medicine1 = new Drop(this,-50,-50,'medicine',0);
+        this.shield1 = new Drop(this,-50,-50,'shield',0);
+        this.monsterKilled = 0;
 
         // set camera bounds
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -266,9 +266,9 @@ class Map4 extends Phaser.Scene {
 
 
 
-        // add outcome for collision between hero and monsters
+        // add outcome for collision between hero and door
         this.physics.add.collider(this.hero,this.door, ()=>{
-            if (!this.door.opened){
+            if (!this.door.opened && (this.monsterKilled>=4 || this.haveKey)){
                 this.door.opened = true;
                 this.door.anims.play('open');
                 this.hero.alpha = false;
@@ -278,7 +278,7 @@ class Map4 extends Phaser.Scene {
                         this.scene.start('bossScene');
                     }else{
                         this.rd = Math.round(Math.random()*2);
-                        console.log(this.rd);
+                        
                         if(this.rd ==0){
                             this.scene.start('map2Scene');
                         }else if(this.rd ==1){
@@ -400,7 +400,7 @@ class Map4 extends Phaser.Scene {
         },null, this);
         this.physics.add.collider(this.hero,this.medicine1, ()=>{
             this.rmm = Math.round(Math.random()*2);
-            console.log(this.rmm);
+            
             switch(this.rmm){
                 case 0:
                     if (hp<max_hp){
@@ -411,7 +411,7 @@ class Map4 extends Phaser.Scene {
                     range += 0.05;
                     this.bullet1.timeMoving += 0.05;
                     break;
-                case 2:
+                case 2:          
                     hp-=1;
             }
             this.medicine1.x =-50;
@@ -463,7 +463,7 @@ class Map4 extends Phaser.Scene {
     }
 
     itemDrop(monster){
-        this.rdrop = Math.round(Math.random()*5);
+        this.rdrop = Math.round(Math.random()*10);
         switch(this.rdrop){
             case 0:
                 this.heart1.x = monster.x;

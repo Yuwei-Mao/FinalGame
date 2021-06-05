@@ -128,6 +128,14 @@ class Map1 extends Phaser.Scene {
         // add life text
         this.lifeText = this.add.bitmapText(5, 5, 'gem', 'Life: '+hp, 30).setOrigin(0,0).setTint(0xee2c79);
         
+        // add drops
+        this.heart1 = new Drop(this,-50,-50,'heart',0);
+        this.key1 = new Drop(this,-50,-50,'key',0);
+        this.range1 = new Drop(this,-50,-50,'range',0);
+        this.medicine1 = new Drop(this,-50,-50,'medicine',0);
+        this.shield1 = new Drop(this,-50,-50,'shield',0);
+        this.monsterKilled = 0;
+
         // set camera bounds
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.hero, true, 0.25, 0.25); 
@@ -282,11 +290,10 @@ class Map1 extends Phaser.Scene {
         this.physics.add.collider(this.hero,this.trap, ()=>{
             // nothing 
         },null, this);
-
-        // add outcome for collision between hero and monsters
         
+        // add outcome for collision between hero and door
         this.physics.add.collider(this.hero,this.door, ()=>{
-            if (!this.door.opened){
+            if (!this.door.opened && (this.monsterKilled>=4 || this.haveKey)){
                 this.door.opened = true;
                 this.door.anims.play('open');
                 this.hero.alpha = false;
@@ -296,18 +303,17 @@ class Map1 extends Phaser.Scene {
                         this.scene.start('bossScene');
                     }else{
                         this.rd = Math.round(Math.random()*2);
-                        console.log(this.rd);
+        
                         if(this.rd ==0){
                             this.scene.start('map2Scene');
                         }else if(this.rd ==1){
-                            this.scene.start('map3Scene');
-                        }else{
                             this.scene.start('map4Scene');
+                        }else{
+                            this.scene.start('map1Scene');
                         }
                         
                     }
-                    
-                });
+            });
             }
 
         },null, this);
@@ -316,6 +322,8 @@ class Map1 extends Phaser.Scene {
             this.monster1.hurt();
             this.monster1.setTint(0xFF0000);
             if (this.monster1.hp <= 0){
+                this.monsterKilled += 1;
+                this.itemDrop(this.monster1);
                 this.monster1.destroyed = true;
                 this.monster1.destroy();
             }
@@ -324,6 +332,8 @@ class Map1 extends Phaser.Scene {
         this.physics.add.collider(this.bullet1,this.monster2, ()=>{
             this.monster2.hurt();
             if (this.monster2.hp <= 0){
+                this.monsterKilled += 1;
+                this.itemDrop(this.monster2);
                 this.monster2.destroyed = true;
                 this.monster2.destroy();
             }
@@ -331,6 +341,8 @@ class Map1 extends Phaser.Scene {
         this.physics.add.collider(this.bullet1,this.monster3, ()=>{
             this.monster3.hurt();
             if (this.monster3.hp <= 0){
+                this.monsterKilled += 1;
+                this.itemDrop(this.monster3);
                 this.monster3.destroyed = true;
                 this.monster3.destroy();
             }
@@ -338,6 +350,8 @@ class Map1 extends Phaser.Scene {
         this.physics.add.collider(this.bullet1,this.monster4, ()=>{
             this.monster4.hurt();
             if (this.monster4.hp <= 0){
+                this.monsterKilled += 1;
+                this.itemDrop(this.monster4);
                 this.monster4.destroyed = true;
                 this.monster4.destroy();
             }
@@ -382,7 +396,51 @@ class Map1 extends Phaser.Scene {
                 this.monster4.monsterBullet.setVelocityY(0);
             },null, this);
         }
-        
+        //have key
+        this.havekey = false;
+        //hero collide with drops
+        this.physics.add.collider(this.hero,this.heart1, ()=>{
+            if (hp<max_hp){
+                hp+=1;
+            }
+            this.heart1.x = -50;
+            this.heart1.y = -50;
+        },null, this);
+        this.physics.add.collider(this.hero,this.key1, ()=>{
+            this.haveKey = true;
+            this.key1.x = -50;
+            this.key1.y = -50;
+        },null, this);
+        this.physics.add.collider(this.hero,this.range1, ()=>{
+            range += 0.05;
+            this.bullet1.timeMoving += 0.05;
+            this.range1.x = -50;
+            this.range1.y = -50;
+        },null, this);
+        this.physics.add.collider(this.hero,this.shield1, ()=>{
+            sh +=1
+            this.shield1.x = -50;
+            this.shield1.y = -50;
+        },null, this);
+        this.physics.add.collider(this.hero,this.medicine1, ()=>{
+            this.rmm = Math.round(Math.random()*2);
+            
+            switch(this.rmm){
+                case 0:
+                    if (hp<max_hp){
+                        hp+=1;
+                    }
+                    break;
+                case 1:
+                    range += 0.05;
+                    this.bullet1.timeMoving += 0.05;
+                    break;
+                case 2:          
+                    hp-=1;
+            }
+            this.medicine1.x =-50;
+            this.medicine1.y =-50;
+        },null, this);
 
     }
 
@@ -426,6 +484,32 @@ class Map1 extends Phaser.Scene {
         if(cursors.shift.isDown || game.input.mousePointer.isDown) {
             this.hero.play('swing-left', true);
             this.bullet1.fire(this.hero.x, this.hero.y);
+        }
+    }
+
+    itemDrop(monster){
+        this.rdrop = Math.round(Math.random()*10);
+        switch(this.rdrop){
+            case 0:
+                this.heart1.x = monster.x;
+                this.heart1.y = monster.y;
+                break;
+            case 1:
+                this.key1.x = monster.x;
+                this.key1.y = monster.y;
+                break;
+            case 2:
+                this.range1.x = monster.x;
+                this.range1.y = monster.y;
+                break;
+            case 3:
+                this.medicine1.x = monster.x;
+                this.medicine1.y = monster.y;
+                break;
+            case 4:
+                this.shield1.x = monster.x;
+                this.shield1.y = monster.y;
+                break;
         }
     }
 }

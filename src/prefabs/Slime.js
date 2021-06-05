@@ -15,7 +15,7 @@ class Slime extends Phaser.Physics.Arcade.Sprite {
         this.rangeB = this.x + 64;
 
         //set moveVelocity
-        this.initialVelocity = 20 + 20*Math.random();
+        this.initialVelocity = 20 + 20*Math.random()+level;
         this.moveVelocity = this.initialVelocity;
 
         //set destroyed
@@ -27,7 +27,7 @@ class Slime extends Phaser.Physics.Arcade.Sprite {
 
         this.haveBullet = true;
         this.monsterBullet = new MonsterBullet(this.scene, -10, -10,'green_bullet',0);
-
+        this.monsterBullet.moveSpeed  = this.monsterBullet.moveSpeed *(1+ (level+10)/100 );
     }
 
     update() {

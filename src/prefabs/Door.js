@@ -6,8 +6,9 @@ class Door extends Phaser.Physics.Arcade.Sprite {
 
         this.scene = scene;
 
+        //set if door opened
+        this.opened = false;
 
-        this.body.setCollideWorldBounds(true);
 
 
     }

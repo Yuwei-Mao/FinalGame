@@ -15,7 +15,7 @@ class Fire extends Phaser.Physics.Arcade.Sprite {
         this.rangeB = this.x + 32;
 
         //set moveVelocity
-        this.initialVelocity = 15 + 20*Math.random();
+        this.initialVelocity = 15 + 20*Math.random()+ level;
         this.moveVelocity = -this.initialVelocity;
 
         //set destroyed
