@@ -23,7 +23,6 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
     }
 
     hurt() {
-        this.x -= 30;
         
         
         this.setTint(0xFF0000); 

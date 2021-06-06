@@ -1,5 +1,5 @@
-// Fire frefab
-class Fire extends Phaser.Physics.Arcade.Sprite {
+// Boss1 frefab
+class Boss1 extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, texture, frame){
         super(scene, x, y, texture, frame);
         scene.add.existing(this); 
@@ -7,27 +7,27 @@ class Fire extends Phaser.Physics.Arcade.Sprite {
 
         this.scene = scene;
 
+        this.body.allowGravity = false;
         //set animation
-        this.anims.play('fireMove');
+        this.anims.play('boss1leftMove');
 
         //set move range
-        this.rangeA = this.x - 32;
-        this.rangeB = this.x + 32;
+        this.rangeA = this.x - 64*5;
+        this.rangeB = this.x + 64;
 
         //set moveVelocity
-        this.initialVelocity = 15 + 20*Math.random()+ level;
-        this.moveVelocity = -this.initialVelocity;
+        this.initialVelocity = 35;
+        this.moveVelocity = -5*this.initialVelocity;
 
         //set destroyed
         this.destroyed = false;
 
         //set hp
-        this.hp = 3;
+        this.hp = 30;
 
-        //set Bullet
-        this.haveBullet = true;
-        this.monsterBullet = new MonsterBullet(this.scene, -10, -10,'fire_bullet',0);
+        this.haveBullet = false;
 
+        this.body.setSize(64,64);
 
     }
 
@@ -36,9 +36,11 @@ class Fire extends Phaser.Physics.Arcade.Sprite {
         if (!this.destroyed){
             this.setVelocityX(this.moveVelocity);
             if (this.x<=this.rangeA){
+                this.anims.play('boss1rightMove');
                 this.moveVelocity = this.initialVelocity;
             }else if(this.x>=this.rangeB){
-                this.moveVelocity = -this.initialVelocity;
+                this.anims.play('boss1leftMove');
+                this.moveVelocity = -5*this.initialVelocity;
             }
                        
             
@@ -48,7 +50,7 @@ class Fire extends Phaser.Physics.Arcade.Sprite {
     }
 
     hurt() {
-        this.monsterBullet.fire(this.x,this.y);
+        
         this.hp -= 1;
         this.setTint(0xFF0000); 
         this.scene.time.delayedCall(500, () => {

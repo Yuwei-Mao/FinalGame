@@ -253,25 +253,31 @@ class Map3 extends Phaser.Scene {
 
         // add outcome for collision between hero and monsters
         this.physics.add.collider(this.hero,this.monster1, ()=>{
+            this.hero.x -= 30;
             this.hero.hurt();
         },null, this);
         this.physics.add.collider(this.hero,this.monster2, ()=>{
+            this.hero.x -= 30;
             this.hero.hurt();
         },null, this);
         this.physics.add.collider(this.hero,this.monster3, ()=>{
+            this.hero.x -= 30;
             this.hero.hurt();
         },null, this);
         this.physics.add.collider(this.hero,this.monster4, ()=>{
+            this.hero.x -= 30;
             this.hero.hurt();
         },null, this);
 
 
         // add outcome for collision between hero and traps
         this.physics.add.collider(this.hero,this.trap1, ()=>{
+            this.hero.x -= 30;
             this.hero.hurt();
         },null, this);
 
         this.physics.add.collider(this.hero,this.trap2, ()=>{
+            this.hero.x -= 30;
             this.hero.hurt();
         },null, this);
 

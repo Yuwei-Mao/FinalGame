@@ -51,7 +51,7 @@ class Slime extends Phaser.Physics.Arcade.Sprite {
     }
 
     hurt() {
-        this.x += 20;
+        
         this.hp -= 1;
         this.setTint(0xFF0000); 
         this.scene.time.delayedCall(500, () => {

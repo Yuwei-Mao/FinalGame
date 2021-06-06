@@ -8,7 +8,6 @@ class Gameover extends Phaser.Scene {
     }
 
     create() {
-        
     }
 
     update() {

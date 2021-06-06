@@ -40,7 +40,7 @@ class BossMap extends Phaser.Scene {
 
         // spawn monster
         const m1Spawn = map.findObject('Spawns', obj=> obj.name === 'm1Spawn');
-        this.monster1 = new Eyeball(this,m1Spawn.x, m1Spawn.y, 'pink_eyeball', 0);
+        this.monster1 = new Boss1(this,m1Spawn.x, m1Spawn.y-32, 'boss1leftMove', 0).setOrigin(0,0);
         this.monster1.setImmovable(true);
 
 
@@ -163,13 +163,13 @@ class BossMap extends Phaser.Scene {
 
         // add outcome for collision between hero and monsters
         this.physics.add.collider(this.hero,this.monster1, ()=>{
+            this.hero.x -= 30;
             this.hero.hurt();
         },null, this);
 
 
         this.physics.add.collider(this.bullet1, this.monster1, ()=>{
             this.monster1.hurt();
-            this.monster1.setTint(0xFF0000);
             if (this.monster1.hp <= 0){
                 this.monster1.destroyed = true;
                 this.monster1.destroy();
@@ -199,7 +199,7 @@ class BossMap extends Phaser.Scene {
         this.bullet1.update();
 
         //update monsters
-        //this.monster1.update();
+        this.monster1.update();
         //this.monster2.update();
         //this.monster3.update();
         //this.monster4.update();
