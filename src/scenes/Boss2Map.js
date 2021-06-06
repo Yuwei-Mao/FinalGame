@@ -1,6 +1,6 @@
-class BossMap extends Phaser.Scene {
+class Boss2Map extends Phaser.Scene {
     constructor() {
-        super('bossScene');
+        super('boss2Scene');
 
          // variables and settings
          this.ACCELERATION = 500;
@@ -40,7 +40,7 @@ class BossMap extends Phaser.Scene {
 
         // spawn monster
         const m1Spawn = map.findObject('Spawns', obj=> obj.name === 'm1Spawn');
-        this.monster1 = new Boss1(this,m1Spawn.x, m1Spawn.y-32, 'boss1leftMove', 0).setOrigin(0,0);
+        this.monster1 = new Boss2(this,m1Spawn.x, m1Spawn.y-32, 'boss1leftMove', 0).setOrigin(0,0);
         this.monster1.setImmovable(true);
 
 
@@ -162,6 +162,16 @@ class BossMap extends Phaser.Scene {
 
 
         // add outcome for collision between hero and monsters
+        this.physics.add.collider(this.hero,this.monster1.baba1, ()=>{
+            this.hero.x -= 30;
+            this.hero.hurt();
+        },null, this);
+
+        this.physics.add.collider(this.hero,this.monster1.baba2, ()=>{
+            this.hero.x -= 30;
+            this.hero.hurt();
+        },null, this);
+
         this.physics.add.collider(this.hero,this.monster1, ()=>{
             this.hero.x -= 30;
             this.hero.hurt();
@@ -184,6 +194,26 @@ class BossMap extends Phaser.Scene {
                     this.scene.start('map1Scene');
                 }
             }         
+        },null, this);
+
+        this.physics.add.collider(this.bullet1,this.monster1.baba1, ()=>{
+            this.monster1.baba1.hurt();
+            if (this.monster1.baba1.hp <= 0){
+                this.monster1.baba1.x = -10;
+                this.monster1.baba1.y = -10;
+                this.monster1.baba1.setVelocityX(0);
+                this.monster1.baba1.setVelocityY(0);
+            }
+        },null, this);
+        this.physics.add.collider(this.bullet1,this.monster1.baba2, ()=>{
+            this.monster1.baba2.hurt();
+            if (this.monster1.baba2.hp <= 0){
+                this.monster1.baba2.x = -10;
+                this.monster1.baba2.y = -10;
+                this.monster1.baba2.setVelocityX(0);
+                this.monster1.baba2.setVelocityY(0);
+        
+            }
         },null, this);
 
         

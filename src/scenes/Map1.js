@@ -126,7 +126,7 @@ class Map1 extends Phaser.Scene {
         // add bullet
         this.bullet1 = new Bullet(this,-100,-100,'bullet').setOrigin(0,0);
         // add life text
-        this.lifeText = this.add.bitmapText(5, 5, 'gem', 'Life: '+hp, 30).setOrigin(0,0).setTint(0xee2c79);
+        this.lifeText = this.add.bitmapText(5, 5, 'gem', 'HP: '+hp+'/'+max_hp+'SH:'+sh, 30).setOrigin(0,0).setTint(0xee2c79);
         
         // add drops
         this.heart1 = new Drop(this,-50,-50,'heart',0);
@@ -135,6 +135,9 @@ class Map1 extends Phaser.Scene {
         this.medicine1 = new Drop(this,-50,-50,'medicine',0);
         this.shield1 = new Drop(this,-50,-50,'shield',0);
         this.monsterKilled = 0;
+
+        //add text reminder
+        this.reminder1 = new Reminder(this,-10,-10,'heart',0);
 
         // set camera bounds
         this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
@@ -306,8 +309,10 @@ class Map1 extends Phaser.Scene {
                 this.hero.alpha = false;
                 this.time.delayedCall(1000, () => {
                     level += 1;
-                    if (level%5==0){
+                    if (level==5){
                         this.scene.start('bossScene');
+                    }else if(level==10){
+                        this.scene.start('boss2Scene');
                     }else{
                         this.rd = Math.round(Math.random()*2);
         
@@ -407,6 +412,7 @@ class Map1 extends Phaser.Scene {
         this.havekey = false;
         //hero collide with drops
         this.physics.add.collider(this.hero,this.heart1, ()=>{
+            this.reminder1.show("HP+1");
             if (hp<max_hp){
                 hp+=1;
             }
@@ -414,17 +420,20 @@ class Map1 extends Phaser.Scene {
             this.heart1.y = -50;
         },null, this);
         this.physics.add.collider(this.hero,this.key1, ()=>{
+            this.reminder1.show("Got Key");
             this.haveKey = true;
             this.key1.x = -50;
             this.key1.y = -50;
         },null, this);
         this.physics.add.collider(this.hero,this.range1, ()=>{
+            this.reminder1.show("Range++");
             range += 0.05;
             this.bullet1.timeMoving += 0.05;
             this.range1.x = -50;
             this.range1.y = -50;
         },null, this);
         this.physics.add.collider(this.hero,this.shield1, ()=>{
+            this.reminder1.show("Shield+1");
             sh +=1
             this.shield1.x = -50;
             this.shield1.y = -50;
@@ -434,15 +443,18 @@ class Map1 extends Phaser.Scene {
             
             switch(this.rmm){
                 case 0:
+                    this.reminder1.show("HP+1");
                     if (hp<max_hp){
                         hp+=1;
                     }
                     break;
                 case 1:
+                    this.reminder1.show("Range++");
                     range += 0.05;
                     this.bullet1.timeMoving += 0.05;
                     break;
-                case 2:          
+                case 2: 
+                    this.reminder1.show("HP-1");         
                     hp-=1;
             }
             this.medicine1.x =-50;
@@ -456,8 +468,8 @@ class Map1 extends Phaser.Scene {
     update() { 
 
         //update location and content of lifeText
-        this.lifeText.x = this.hero.x;
-        this.lifeText.text = "Life: " + hp;
+        this.lifeText.x = this.hero.x-64;
+        this.lifeText.text = 'HP:'+hp+'/'+max_hp+' SH:'+sh;
         this.bullet1.update();
 
         //update monsters
@@ -465,6 +477,7 @@ class Map1 extends Phaser.Scene {
         this.monster2.update();
         this.monster3.update();
         this.monster4.update();
+        this.reminder1.update();
 
         if(this.keyA.isDown) {
             this.hero.body.setAccelerationX(-this.ACCELERATION);
@@ -514,6 +527,7 @@ class Map1 extends Phaser.Scene {
                 this.medicine1.y = monster.y;
                 break;
             case 4:
+        
                 this.shield1.x = monster.x;
                 this.shield1.y = monster.y;
                 break;

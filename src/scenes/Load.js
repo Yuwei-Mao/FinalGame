@@ -36,6 +36,14 @@ class Load extends Phaser.Scene {
             frameWidth: 64,
             frameHeight: 64,
         })
+        this.load.spritesheet('boss2', 'boss2.png',{
+            frameWidth: 64,
+            frameHeight: 64,
+        })
+        this.load.spritesheet('baba','baba.png',{
+            frameWidth: 16,
+            frameHeight: 16,
+        })
 
         this.load.bitmapFont('gem', 'gem.png', 'gem.xml');
         this.load.image('bg','bg.png');
@@ -98,6 +106,18 @@ class Load extends Phaser.Scene {
             frameRate: 8,
             repeat: -1,
             frames: this.anims.generateFrameNumbers('boss1', { start: 2, end: 3 }),
+        });
+        this.anims.create({
+            key: 'boss2Move',
+            frameRate: 8,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('boss2', { start: 0, end: 3 }),
+        });
+        this.anims.create({
+            key: 'babaMove',
+            frameRate: 4,
+            repeat: -1,
+            frames: this.anims.generateFrameNumbers('baba', { start: 0, end: 2 }),
         });
         // go to Title scene
         this.scene.start('titleScene');
