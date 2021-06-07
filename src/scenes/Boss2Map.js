@@ -182,8 +182,10 @@ class Boss2Map extends Phaser.Scene {
             this.monster1.hurt();
             if (this.monster1.hp <= 0){
                 this.bgm.stop();
+                this.sound.play('ending');
                 this.monster1.destroyed = true;
                 this.monster1.destroy();
+<<<<<<< HEAD
                 level += 1;
                 // restore hp
                 if (hp<max_hp){
@@ -198,6 +200,9 @@ class Boss2Map extends Phaser.Scene {
                 }else{
                     this.scene.start('map1Scene');
                 }
+=======
+                this.scene.start('talking6Scene');
+>>>>>>> 4f30003cd77287062530a7cb3a2712f06284a489
             }         
         },null, this);
 
@@ -242,7 +247,7 @@ class Boss2Map extends Phaser.Scene {
         }
         //update location and content of lifeText
         this.lifeText.x = this.hero.x-64;
-        this.lifeText.text = 'HP:'+hp+'/'+max_hp+' SH:'+sh;
+        this.lifeText.text = 'HP:'+hp+'/'+max_hp+' Shield:'+sh;
         this.bullet1.update();
 
         //update monsters

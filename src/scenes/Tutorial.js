@@ -8,7 +8,7 @@ class Tutorial extends Phaser.Scene {
     }
 
     create() {
-        this.add.bitmapText(textSpacer, 1/2*textSpacer, 'gem', '    To start the game, player will get 5 HP.', 16).setOrigin(0,0).setTint(0x32a860);
+        this.add.bitmapText(textSpacer, 1/2*textSpacer, 'gem', '    To start the game, player will get 20 HP.', 16).setOrigin(0,0).setTint(0x32a860);
         this.add.bitmapText(textSpacer, 3/2*textSpacer, 'gem', 'Everytime the player got hit or attacked by a', 16).setOrigin(0,0).setTint(0x32a860);
         this.add.bitmapText(textSpacer, 3*textSpacer, 'gem', 'monster                               or', 16).setOrigin(0,0).setTint(0x32a860);
         this.add.image(centerX-5*textSpacer, 3*textSpacer, 'Stereary').setScale(SCALE);
