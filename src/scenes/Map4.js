@@ -464,7 +464,7 @@ class Map4 extends Phaser.Scene {
         }
         //update location and content of lifeText
         this.lifeText.x = this.hero.x-64;
-        this.lifeText.text = 'HP:'+hp+'/'+max_hp+' SH:'+sh;
+        this.lifeText.text = 'HP:'+hp+'/'+max_hp+' Shield:'+sh;
         this.bullet1.update();
 
         //update monsters

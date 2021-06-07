@@ -1,6 +1,6 @@
-class Talking3 extends Phaser.Scene {
+class Talking6 extends Phaser.Scene {
     constructor() {
-        super("talking3Scene");
+        super("talking6Scene");
 
         // dialog constants
         this.DBOX_X = 0;			    // dialog box x-position
@@ -37,7 +37,7 @@ class Talking3 extends Phaser.Scene {
 
     create() {
         // parse dialog from JSON file
-        this.dialog = this.cache.json.get('dialog');
+        this.dialog = this.cache.json.get('dialog5');
         //console.log(this.dialog);
 
         // add dialog box sprite
@@ -49,7 +49,7 @@ class Talking3 extends Phaser.Scene {
 
         // ready the character dialog images offscreen
         this.hero = this.add.sprite(this.OFFSCREEN_X, this.DBOX_Y + 8, 'Bugson').setOrigin(0, 1);
-        this.boss = this.add.sprite(this.OFFSCREEN_X + 200, this.DBOX_Y + 8, 'Stereary').setOrigin(0, 1);
+        this.boss = this.add.sprite(this.OFFSCREEN_X + 200, this.DBOX_Y + 8, 'potion').setOrigin(0, 1);
  
 
         // input
@@ -84,10 +84,7 @@ class Talking3 extends Phaser.Scene {
         
         // make sure we haven't run out of conversations...
         if(this.dialogConvo >= this.dialog.length) {
-            // here I'm simply "exiting" the last speaker and removing the dialog box,
-            // but you could build other logic to change game states here
-            this.scene.start('talking5Scene');
-            // tween out prior speaker's image
+            this.scene.start('talking4Scene')
             
 
         } else {

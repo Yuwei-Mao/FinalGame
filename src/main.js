@@ -1,3 +1,5 @@
+// Our team memebers: Yuwei Mao, Henry Huang, Ligen Han
+
 const config = {
     parent: 'phaser-game', 
     type: Phaser.AUTO,     
@@ -8,7 +10,7 @@ const config = {
     physics: {
         default: "arcade"
     },
-    scene: [Load, Title, Menu, Tutorial, Tutorial2, Credit, Talking, Talking2, Talking3, Talking4, Map1, Map2, Map3, Map4, BossMap, Boss2Map, Gameover]
+    scene: [Load, Title, Menu, Tutorial, Tutorial2, Credit, Talking, Talking2, Talking3, Talking5, Map1, Map2, Map3, Map4, BossMap, Boss2Map, Talking6, Talking4, Gameover]
 }
 
 // define game

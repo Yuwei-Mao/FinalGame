@@ -182,18 +182,10 @@ class Boss2Map extends Phaser.Scene {
             this.monster1.hurt();
             if (this.monster1.hp <= 0){
                 this.bgm.stop();
+                this.sound.play('ending');
                 this.monster1.destroyed = true;
                 this.monster1.destroy();
-                level += 1;
-                this.rd = Math.round(Math.random()*2);
-                console.log(this.rd);
-                if(this.rd ==0){
-                    this.scene.start('map2Scene');
-                }else if(this.rd ==1){
-                    this.scene.start('map3Scene');
-                }else{
-                    this.scene.start('map1Scene');
-                }
+                this.scene.start('talking6Scene');
             }         
         },null, this);
 
@@ -234,7 +226,7 @@ class Boss2Map extends Phaser.Scene {
         }
         //update location and content of lifeText
         this.lifeText.x = this.hero.x-64;
-        this.lifeText.text = 'HP:'+hp+'/'+max_hp+' SH:'+sh;
+        this.lifeText.text = 'HP:'+hp+'/'+max_hp+' Shield:'+sh;
         this.bullet1.update();
 
         //update monsters

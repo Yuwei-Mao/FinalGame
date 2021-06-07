@@ -60,6 +60,8 @@ class Load extends Phaser.Scene {
         this.load.json('dialog1', 'dialog1.json');
         this.load.json('dialog2', 'dialog2.json');
         this.load.json('dialog3', 'dialog3.json');
+        this.load.json('dialog4', 'dialog4.json');
+        this.load.json('dialog5', 'dialog5.json');
         this.load.image('dialogbox', 'dialog.png');
         this.load.image('Bugson','hero.png');
         this.load.image('Villagers','villagers.png');

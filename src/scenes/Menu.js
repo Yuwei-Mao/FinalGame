@@ -39,49 +39,15 @@ class Menu extends Phaser.Scene{
         }else if(Phaser.Input.Keyboard.JustDown(this.keyEnter)){
             switch(this.option1){
                 case 1:
-                    this.rd = Math.round(Math.random()*3);
-                    switch(this.rd){
-                        case 0:
-                            this.scene.start('map1Scene');
-                            this.sound.play('switch');
-                            break;
-                        case 1:
-                            this.scene.start('map2Scene');
-                            this.sound.play('switch');
-                            break;
-                        case 2:
-                            this.scene.start('map3Scene');
-                            this.sound.play('switch');
-                            break;
-                        case 3:
-                            this.scene.start('map4Scene');
-                            this.sound.play('switch');
-                            break;
-                    }
+                    this.scene.start('talkingScene')
+                    this.sound.play('switch');
                     break;
                 case 2:
                     hp = 999;
-                    this.rd = Math.round(Math.random()*3);
-                    switch(this.rd){
-                        case 0:
-                            this.scene.start('map1Scene');
-                            this.sound.play('switch');
-                            break;
-                        case 1:
-                            this.scene.start('map2Scene');
-                            this.sound.play('switch');
-                            break;
-                        case 2:
-                            this.scene.start('map3Scene');
-                            this.sound.play('switch');
-                            break;
-                        case 3:
-                            this.scene.start('map4Scene');
-                            this.sound.play('switch');
-                            break;
-                    }
+                    this.scene.start('talkingScene');
+                    this.sound.play('switch');
+                        
                     break;
-                case 2:
                 case 3:
                     this.scene.start('tutorialScene');
                     this.sound.play('switch');

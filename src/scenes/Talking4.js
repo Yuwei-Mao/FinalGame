@@ -84,12 +84,7 @@ class Talking4 extends Phaser.Scene {
         
         // make sure we haven't run out of conversations...
         if(this.dialogConvo >= this.dialog.length) {
-            // here I'm simply "exiting" the last speaker and removing the dialog box,
-            // but you could build other logic to change game states here
-            this.scene.start('map1Scene');
-            // tween out prior speaker's image
-            
-
+            this.scene.start('titleScene');
         } else {
             // if not, set current speaker
             this.dialogSpeaker = this.dialog[this.dialogConvo][this.dialogLine]['speaker'];
