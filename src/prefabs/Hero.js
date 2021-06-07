@@ -24,7 +24,7 @@ class Hero extends Phaser.Physics.Arcade.Sprite {
 
     hurt() {
         
-        
+        this.scene.sound.play('dhp');
         this.setTint(0xFF0000); 
         this.scene.time.delayedCall(500, () => {
             this.clearTint();

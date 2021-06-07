@@ -8,7 +8,7 @@ const config = {
     physics: {
         default: "arcade"
     },
-    scene: [Load, Title, Credit, Menu, Talking, Talking2, Talking3, Talking4, Map1, Map2, Map3, Map4, BossMap, Boss2Map, Gameover]
+    scene: [Load, Title, Menu, Tutorial, Tutorial2, Credit, Talking, Talking2, Talking3, Talking4, Map1, Map2, Map3, Map4, BossMap, Boss2Map, Gameover]
 }
 
 // define game
@@ -19,14 +19,14 @@ let quarterX = game.config.width / 4;
 let quarterY = game.config.height / 4;
 let w = game.config.width;
 let h = game.config.height;
-const SCALE = 2;
+const SCALE = 1/2;
 const textSpacer = 20;
 let cursors;
 //let gameover = false;
 
 //let attacking = false;
 
-let max_hp = 5;
+let max_hp = 20;
 let hp = max_hp;
 // sheid 
 let sh = 0;

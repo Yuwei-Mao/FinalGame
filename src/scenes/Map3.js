@@ -122,13 +122,13 @@ class Map3 extends Phaser.Scene {
         // add bullet
         this.bullet1 = new Bullet(this,-100,-100,'bullet').setOrigin(0,0);
         // add life text
-        this.lifeText = this.add.bitmapText(5, 5, 'gem', 'Life: '+hp, 30).setOrigin(0,0).setTint(0xee2c79);
+        this.lifeText = this.add.bitmapText(5, 5, 'gem', 'Life: '+hp+'/'+max_hp+'Current shield:'+sh, 30).setOrigin(0,0).setTint(0xee2c79);
 
         // add drops
         this.heart1 = new Drop(this,-50,-50,'heart',0);
         this.key1 = new Drop(this,-50,-50,'key',0);
         this.range1 = new Drop(this,-50,-50,'range',0);
-        this.medicine1 = new Drop(this,-50,-50,'medicine',0);
+        this.medicine1 = new Drop(this,-50,-50,'random',0);
         this.shield1 = new Drop(this,-50,-50,'shield',0);
         this.monsterKilled = 0;
 
@@ -288,10 +288,14 @@ class Map3 extends Phaser.Scene {
 
         // add outcome for collision between hero and door
         this.physics.add.collider(this.hero,this.door, ()=>{
+
             if (!this.door.opened && (this.monsterKilled>=4 || this.haveKey)){
+                this.sound.play('open');
+                this.bgm.stop();
                 this.door.opened = true;
                 this.door.anims.play('open');
                 this.hero.alpha = false;
+                this.bullet1.alpha = false;
                 this.time.delayedCall(1000, () => {
                     level += 1;
                     if (level==5){
@@ -319,6 +323,7 @@ class Map3 extends Phaser.Scene {
             this.monster1.hurt();
             this.monster1.setTint(0xFF0000);
             if (this.monster1.hp <= 0){
+                this.sound.play('kill');
                 this.monsterKilled += 1;
                 this.itemDrop(this.monster1);
                 this.monster1.destroyed = true;
@@ -329,6 +334,7 @@ class Map3 extends Phaser.Scene {
         this.physics.add.collider(this.bullet1,this.monster2, ()=>{
             this.monster2.hurt();
             if (this.monster2.hp <= 0){
+                this.sound.play('kill');
                 this.monsterKilled += 1;
                 this.itemDrop(this.monster2);
                 this.monster2.destroyed = true;
@@ -338,6 +344,7 @@ class Map3 extends Phaser.Scene {
         this.physics.add.collider(this.bullet1,this.monster3, ()=>{
             this.monster3.hurt();
             if (this.monster3.hp <= 0){
+                this.sound.play('kill');
                 this.monsterKilled += 1;
                 this.itemDrop(this.monster3);
                 this.monster3.destroyed = true;
@@ -347,6 +354,7 @@ class Map3 extends Phaser.Scene {
         this.physics.add.collider(this.bullet1,this.monster4, ()=>{
             this.monster4.hurt();
             if (this.monster4.hp <= 0){
+                this.sound.play('kill');
                 this.monsterKilled += 1;
                 this.itemDrop(this.monster4);
                 this.monster4.destroyed = true;
@@ -406,12 +414,14 @@ class Map3 extends Phaser.Scene {
             this.heart1.y = -50;
         },null, this);
         this.physics.add.collider(this.hero,this.key1, ()=>{
+            this.sound.play('pick');
             this.reminder1.show("Got Key");
             this.haveKey = true;
             this.key1.x = -50;
             this.key1.y = -50;
         },null, this);
         this.physics.add.collider(this.hero,this.range1, ()=>{
+            this.sound.play('pick');
             this.reminder1.show("Range++");
             range += 0.05;
             this.bullet1.timeMoving += 0.05;
@@ -419,12 +429,14 @@ class Map3 extends Phaser.Scene {
             this.range1.y = -50;
         },null, this);
         this.physics.add.collider(this.hero,this.shield1, ()=>{
+            this.sound.play('pick');
             this.reminder1.show("Shield+1");
             sh +=1
             this.shield1.x = -50;
             this.shield1.y = -50;
         },null, this);
         this.physics.add.collider(this.hero,this.medicine1, ()=>{
+            this.sound.play('pick');
             this.rmm = Math.round(Math.random()*2);
             
             switch(this.rmm){
@@ -446,13 +458,22 @@ class Map3 extends Phaser.Scene {
             this.medicine1.x =-50;
             this.medicine1.y =-50;
         },null, this);
-
+        this.bgm = game.sound.add('bgm2');
+        this.bgm.loop = true;
+        this.bgm.play();
+        this.bgm.setVolume(0.5);
 
     }
 
 
 
     update() { 
+
+        if (hp <= 0){
+            this.bgm.stop();
+            this.scene.start('gameoverScene');
+            
+        }
         //update location and content of lifeText
         this.lifeText.x = this.hero.x-64;
         this.lifeText.text = 'HP:'+hp+'/'+max_hp+' SH:'+sh;
@@ -488,9 +509,11 @@ class Map3 extends Phaser.Scene {
         }
 
         if(cursors.shift.isDown || game.input.mousePointer.isDown) {
+            this.sound.play('attack');
             this.hero.play('swing-left', true);
             this.bullet1.fire(this.hero.x, this.hero.y)
         }
+    
     }
     itemDrop(monster){
         this.rdrop = Math.round(Math.random()*10);

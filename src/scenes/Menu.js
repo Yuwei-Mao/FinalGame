@@ -4,31 +4,21 @@ class Menu extends Phaser.Scene{
     }
     
     preload() {
-
-
     }
 
     
     
     create() {
-
-        
-        // this.add.bitmapText(2*textSpacer, 3*textSpacer, 'gem', 'Press Left Arrow to move left.', 18).setOrigin(0,0).setTint(0x32a860);
-        // this.add.bitmapText(2*textSpacer, 5*textSpacer, 'gem', 'Press Right Arrow to move right.', 18).setOrigin(0,0).setTint(0x32a860);
-        // this.add.bitmapText(2*textSpacer, 7*textSpacer, 'gem', 'Press Shift Key to attack.', 18).setOrigin(0,0).setTint(0x32a860);
-        // this.add.bitmapText(2*textSpacer, 9*textSpacer, 'gem', 'Press Space Bar to jump.', 18).setOrigin(0,0).setTint(0x32a860);
-        // this.add.bitmapText(15*textSpacer, 12*textSpacer,'gem','Press D to start the game.',10).setOrigin(0.5).setTint(0xa83232);
-        // this.add.bitmapText(4*textSpacer, 12*textSpacer,'gem','Press A Arrow to go back.',10).setOrigin(0.5).setTint(0xa83232);
-        // cursors = this.input.keyboard.createCursorKeys();  
-
-        this.t1 = this.add.bitmapText(2*textSpacer, 3*textSpacer, 'gem', 'Start', 18).setOrigin(0,0).setTint(0x8a988e);
-        this.t2 = this.add.bitmapText(2*textSpacer, 5*textSpacer, 'gem', 'Option', 18).setOrigin(0,0).setTint(0x8a988e);
-        this.t3 = this.add.bitmapText(2*textSpacer, 7*textSpacer, 'gem', 'Tutorial', 18).setOrigin(0,0).setTint(0x8a988e);
-        this.t4 = this.add.bitmapText(2*textSpacer, 9*textSpacer, 'gem', 'Credits', 18).setOrigin(0,0).setTint(0x8a988e);
+        this.t0 = this.add.bitmapText(centerX-2*textSpacer, 1/2*textSpacer, 'gem', 'Game Menu', 18).setTint(0xa83232);
+        this.t1 = this.add.bitmapText(2*textSpacer, 2*textSpacer, 'gem', 'Play Normal Mode', 18).setOrigin(0,0).setTint(0x8a988e);
+        this.t2 = this.add.bitmapText(2*textSpacer, 4*textSpacer, 'gem', 'Play Cheating Mode', 18).setOrigin(0,0).setTint(0x8a988e);
+        this.t3 = this.add.bitmapText(2*textSpacer, 6*textSpacer, 'gem', 'Tutorial', 18).setOrigin(0,0).setTint(0x8a988e);
+        this.t4 = this.add.bitmapText(2*textSpacer, 8*textSpacer, 'gem', 'Credits', 18).setOrigin(0,0).setTint(0x8a988e);
+        this.add.bitmapText(centerX, centerY+4.5*textSpacer,'gem','(Press Up Arrown and Down Arrow to pick a option.)',14).setOrigin(0.5).setTint(0xa83232);
+        this.add.bitmapText(centerX, centerY+5.5*textSpacer,'gem','(Press Enter to choose the picked option.)',14).setOrigin(0.5).setTint(0xa83232);
+        this.add.image(centerX+6*textSpacer, centerY - textSpacer, 'Stereary').setScale(2);
         cursors = this.input.keyboard.createCursorKeys();
         this.option1 = 0;
-        this.keyW = this.input.keyboard.addKey('W'); 
-        this.keyS = this.input.keyboard.addKey('S');
         this.keyEnter = this.input.keyboard.addKey('Enter');
 
 
@@ -36,13 +26,15 @@ class Menu extends Phaser.Scene{
 
     update(){
 
-        if (Phaser.Input.Keyboard.JustDown(cursors.up) || Phaser.Input.Keyboard.JustDown(this.keyW)) {
+        if (Phaser.Input.Keyboard.JustDown(cursors.up)) {
             if(this.option1>1){
                 this.option1 -=1;
+                this.sound.play('switch');
             }
-        }else if (Phaser.Input.Keyboard.JustDown(cursors.down) ||Phaser.Input.Keyboard.JustDown(this.keyS)) {
+        }else if (Phaser.Input.Keyboard.JustDown(cursors.down)) {
             if(this.option1<4){
                 this.option1 +=1;
+                this.sound.play('switch');
             }
         }else if(Phaser.Input.Keyboard.JustDown(this.keyEnter)){
             switch(this.option1){
@@ -51,45 +43,81 @@ class Menu extends Phaser.Scene{
                     switch(this.rd){
                         case 0:
                             this.scene.start('map1Scene');
+                            this.sound.play('switch');
                             break;
                         case 1:
                             this.scene.start('map2Scene');
+                            this.sound.play('switch');
                             break;
                         case 2:
                             this.scene.start('map3Scene');
+                            this.sound.play('switch');
                             break;
                         case 3:
-                            this.scene.start('map3Scene');
+                            this.scene.start('map4Scene');
+                            this.sound.play('switch');
                             break;
                     }
+                    break;
+                case 2:
+                    hp = 999;
+                    this.rd = Math.round(Math.random()*3);
+                    switch(this.rd){
+                        case 0:
+                            this.scene.start('map1Scene');
+                            this.sound.play('switch');
+                            break;
+                        case 1:
+                            this.scene.start('map2Scene');
+                            this.sound.play('switch');
+                            break;
+                        case 2:
+                            this.scene.start('map3Scene');
+                            this.sound.play('switch');
+                            break;
+                        case 3:
+                            this.scene.start('map4Scene');
+                            this.sound.play('switch');
+                            break;
+                    }
+                    break;
+                case 2:
+                case 3:
+                    this.scene.start('tutorialScene');
+                    this.sound.play('switch');
+                    break;
+
+                case 4:
+                    this.scene.start('creditScene');
+                    this.sound.play('switch');
                     break;
             }
         }
 
         switch(this.option1){
             case 1:
-                this.t1.setTint(0x393733);
+                this.t1.setTint(0xff0000);
                 this.t2.setTint(0x8a988e);
                 this.t3.setTint(0x8a988e);
                 this.t4.setTint(0x8a988e);
                 break;
             case 2:
                 this.t1.setTint(0x8a988e);
-                this.t2.setTint(0x393733);
+                this.t2.setTint(0xff0000);
                 this.t3.setTint(0x8a988e);
                 this.t4.setTint(0x8a988e);
                 break;
             case 3:
                 this.t1.setTint(0x8a988e);
                 this.t2.setTint(0x8a988e);
-                this.t3.setTint(0x393733);
+                this.t3.setTint(0xff0000);
                 this.t4.setTint(0x8a988e);
                 break;
             case 4:
                 this.t1.setTint(0x8a988e);
                 this.t2.setTint(0x8a988e);
                 this.t3.setTint(0x8a988e);
-                this.t4.setTint(0x393733);
+                this.t4.setTint(0xff0000);
                 break;    
         }
 

@@ -16,7 +16,7 @@ class Boss1 extends Phaser.Physics.Arcade.Sprite {
         this.rangeB = this.x + 64;
 
         //set moveVelocity
-        this.initialVelocity = 35;
+        this.initialVelocity = 50;
         this.moveVelocity = -5*this.initialVelocity;
 
         //set destroyed

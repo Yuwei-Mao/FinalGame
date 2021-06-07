@@ -23,7 +23,7 @@ class Boss2 extends Phaser.Physics.Arcade.Sprite {
         this.destroyed = false;
 
         //set hp
-        this.hp = 50;
+        this.hp = 40;
 
         this.haveBullet = false;
 
@@ -47,6 +47,19 @@ class Boss2 extends Phaser.Physics.Arcade.Sprite {
             this.baba1.update();
             this.baba2.update();
             
+            if (this.y>300) {
+                this.x = this.rangeA + Math.round(Math.random()*512);
+                this.y = 0
+
+                
+                    
+                this.baba1.x = this.x;
+                this.baba1.y = 208;
+                
+                
+                this.baba2.x = this.x+32;
+                this.baba2.y = 208;
+            }
                   
         }
         

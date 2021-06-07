@@ -171,6 +171,7 @@ class BossMap extends Phaser.Scene {
         this.physics.add.collider(this.bullet1, this.monster1, ()=>{
             this.monster1.hurt();
             if (this.monster1.hp <= 0){
+                this.bgm.stop();
                 this.monster1.destroyed = true;
                 this.monster1.destroy();
                 level += 1;
@@ -185,14 +186,22 @@ class BossMap extends Phaser.Scene {
                 }
             }         
         },null, this);
-
         
+        this.bgm = game.sound.add('bgm1');
+        this.bgm.loop = true;
+        this.bgm.play();
+        this.bgm.setVolume(0.5);
 
     }
 
 
 
     update() { 
+        if (hp <= 0){
+            this.bgm.stop();
+            this.scene.start('gameoverScene');
+            
+        }
         //update location and content of lifeText
         this.lifeText.x = this.hero.x-64;
         this.lifeText.text = 'HP:'+hp+'/'+max_hp+' SH:'+sh;
@@ -227,8 +236,13 @@ class BossMap extends Phaser.Scene {
         }
 
         if(cursors.shift.isDown || game.input.mousePointer.isDown) {
+            this.sound.play('attack');
             this.hero.play('swing-left', true);
             this.bullet1.fire(this.hero.x, this.hero.y)
+        }
+        
+        if (hp == 0){
+            this.scene.start('gameoverScene');
         }
     }
 }

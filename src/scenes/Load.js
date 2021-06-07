@@ -46,15 +46,14 @@ class Load extends Phaser.Scene {
         })
 
         this.load.bitmapFont('gem', 'gem.png', 'gem.xml');
-        this.load.image('bg','bg.png');
         this.load.image('tower','tower.png');
-        this.load.image('hider','hider.png');
         this.load.image('bullet','bullet.png');
         this.load.image('fire_bullet','fire_bullet.png');
         this.load.image('green_bullet','green_bullet.png');
         this.load.image('heart','heart.png');
         this.load.image('key','key.png');
-        this.load.image('medicine','medicine.png');
+        this.load.image('potion','medicine.png');
+        this.load.image('random','random.png');
         this.load.image('range','range.png');
         this.load.image('shield','shield.png');
         this.load.json('dialog', 'dialog.json');
@@ -65,13 +64,32 @@ class Load extends Phaser.Scene {
         this.load.image('Bugson','hero.png');
         this.load.image('Villagers','villagers.png');
         this.load.image('Stereary','boss.png');
+        this.load.image('bosss1','bosss1.png');
+        this.load.image('trap1','trap1.png');
+        this.load.image('monster1','monster1.png');
+        this.load.image('monster2','monster2.png');
+        this.load.image('monster3','monster3.png');
+        this.load.image('monster4','monster4.png');
         this.load.image('bg1','bg1.png');
         this.load.image('bg2','bg2.png');
+        this.load.image('gameover','gameover.png');
+
         
 
         //load audio
         this.load.audio('attack','attack.wav');
         this.load.audio('shift','shift.wav');
+        this.load.audio('switch','switch.wav');
+        this.load.audio('gameover','gameover.wav');
+        this.load.audio('pick','pick.wav');
+        this.load.audio('kill','kill.wav');
+        this.load.audio('bgm1','bgm1.wav');
+        this.load.audio('bgm2','bgm2.wav');
+        this.load.audio('bgm2','bgm2.wav');
+        this.load.audio('ending','ending.wav');
+        this.load.audio('dhp','dhp.wav');
+        this.load.audio('open','open.wav');
+
     }
 
     create() {

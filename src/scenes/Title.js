@@ -13,8 +13,11 @@ class Title extends Phaser.Scene {
         let title02 = this.add.bitmapText(centerX, centerY + 4.5*textSpacer, 'gem', 'Yuwei Mao', 10).setOrigin(0.5).setTint(0xff00ff);
         let title03 = this.add.bitmapText(centerX + 5*textSpacer, centerY + 4.5*textSpacer, 'gem', 'Henry Huang', 10).setOrigin(0.5).setTint(0xffff00);
         let title04 = this.add.bitmapText(centerX, centerY-textSpacer, 'gem', 'The Cursed Hero:', 24).setOrigin(0.5).setTint(0x0099ff);
-        let title05 = this.add.bitmapText(centerX, centerY+textSpacer, 'gem', 'The Way to Almighty Medicine', 24).setOrigin(0.5).setTint(0x0099ff);
+        let title05 = this.add.bitmapText(centerX-textSpacer, centerY+textSpacer, 'gem', 'The Way to Almighty Potion', 24).setOrigin(0.5).setTint(0x0099ff);
         this.add.image(centerX, centerY- 4.5*textSpacer, 'tower').setScale(2);
+        this.add.image(centerX-6.5*textSpacer, centerY- 2*textSpacer, 'Bugson');
+        this.add.sprite(centerX+8*textSpacer, centerY, 'potion').setScale(2);
+
        
         this.add.bitmapText(centerX, centerY + 3*textSpacer, 'gem', 'Press UP ARROW to Continue', 15).setOrigin(0.5).setTint(0xa83232);
 
@@ -79,6 +82,7 @@ class Title extends Phaser.Scene {
           
             // start gameplay scene
             this.scene.start('menuScene');
+            this.sound.play('switch');
         }
     }
 }
