@@ -10,7 +10,7 @@ const config = {
     physics: {
         default: "arcade"
     },
-    scene: [Load, Title, Menu, Tutorial, Tutorial2, Credit, Talking, Talking2, Talking3, Talking5, Map1, Map2, Map3, Map4, BossMap, Boss2Map, Talking6, Talking4, Gameover]
+    scene: [Load, Title, Menu, Tutorial, Tutorial2, Credit, Talking, Talking2, Talking3, Talking5, Map1, Map2, Map3, Map4, BossMap, Boss2Map, Talking6, Talking4, Credit2, Gameover]
 }
 
 // define game

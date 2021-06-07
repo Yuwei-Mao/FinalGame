@@ -9,7 +9,6 @@ class Gameover extends Phaser.Scene {
     create() {
         this.bg = this.add.tileSprite(0, 0, 400, 256,'gameover').setOrigin(0,0);
         cursors = this.input.keyboard.createCursorKeys();
-        this.add.bitmapText(1/2*textSpacer, 12*textSpacer,'gem','Press Left Arrow to go back to menu.', 10).setOrigin(0,0).setTint(0xa83232);
         this.add.bitmapText(10.5*textSpacer, 12*textSpacer,'gem','Press Right Arrow to restart the game.',10).setOrigin(0).setTint(0xa83232);
         hp = max_hp;
         range = 0.15;
@@ -19,10 +18,6 @@ class Gameover extends Phaser.Scene {
     }
 
     update() {
-        if(Phaser.Input.Keyboard.JustDown(cursors.left)){
-            this.scene.start('menuScene');
-            this.sound.play('switch');
-        }
 
         if(Phaser.Input.Keyboard.JustDown(cursors.right)){
             this.sound.play('switch');

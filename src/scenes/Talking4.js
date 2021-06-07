@@ -84,7 +84,7 @@ class Talking4 extends Phaser.Scene {
         
         // make sure we haven't run out of conversations...
         if(this.dialogConvo >= this.dialog.length) {
-            this.scene.start('titleScene');
+            this.scene.start('credit2Scene');
         } else {
             // if not, set current speaker
             this.dialogSpeaker = this.dialog[this.dialogConvo][this.dialogLine]['speaker'];
