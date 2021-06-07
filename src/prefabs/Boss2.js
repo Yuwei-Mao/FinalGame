@@ -16,14 +16,14 @@ class Boss2 extends Phaser.Physics.Arcade.Sprite {
         this.rangeB = this.x + 256;
 
         //set moveVelocity
-        this.initialVelocity = 35;
+        this.initialVelocity = 45;
         this.moveVelocity = -5*this.initialVelocity;
 
         //set destroyed
         this.destroyed = false;
 
         //set hp
-        this.hp = 40;
+        this.hp = 45;
 
         this.haveBullet = false;
 
@@ -49,14 +49,9 @@ class Boss2 extends Phaser.Physics.Arcade.Sprite {
             
             if (this.y>300) {
                 this.x = this.rangeA + Math.round(Math.random()*512);
-                this.y = 0
-
-                
-                    
+                this.y = 0; 
                 this.baba1.x = this.x;
                 this.baba1.y = 208;
-                
-                
                 this.baba2.x = this.x+32;
                 this.baba2.y = 208;
             }
@@ -72,17 +67,14 @@ class Boss2 extends Phaser.Physics.Arcade.Sprite {
         this.setTint(0xFF0000); 
         this.scene.time.delayedCall(500, () => {
             this.clearTint();
-            this.x = this.rangeA + Math.round(Math.random()*512);
-            this.y = 0
-
-            
-                
+            if (Math.round(Math.random()*2)==1){
+                this.x = this.rangeA + Math.round(Math.random()*512);
+            this.y = 0;
             this.baba1.x = this.x;
             this.baba1.y = 208;
-            
-            
             this.baba2.x = this.x+32;
             this.baba2.y = 208;
+            }
             
         });
     }

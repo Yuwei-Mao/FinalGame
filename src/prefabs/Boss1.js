@@ -12,18 +12,18 @@ class Boss1 extends Phaser.Physics.Arcade.Sprite {
         this.anims.play('boss1leftMove');
 
         //set move range
-        this.rangeA = this.x - 64*5;
+        this.rangeA = this.x - 64*3;
         this.rangeB = this.x + 64;
 
         //set moveVelocity
-        this.initialVelocity = 50;
+        this.initialVelocity = 80;
         this.moveVelocity = -5*this.initialVelocity;
 
         //set destroyed
         this.destroyed = false;
 
         //set hp
-        this.hp = 30;
+        this.hp = 40;
 
         this.haveBullet = false;
 

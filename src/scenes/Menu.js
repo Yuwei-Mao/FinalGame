@@ -11,7 +11,7 @@ class Menu extends Phaser.Scene{
     create() {
         this.t0 = this.add.bitmapText(centerX-2*textSpacer, 1/2*textSpacer, 'gem', 'Game Menu', 18).setTint(0xa83232);
         this.t1 = this.add.bitmapText(2*textSpacer, 2*textSpacer, 'gem', 'Play Normal Mode', 18).setOrigin(0,0).setTint(0x8a988e);
-        this.t2 = this.add.bitmapText(2*textSpacer, 4*textSpacer, 'gem', 'Play Cheating Mode', 18).setOrigin(0,0).setTint(0x8a988e);
+        this.t2 = this.add.bitmapText(2*textSpacer, 4*textSpacer, 'gem', 'Play God Mode', 18).setOrigin(0,0).setTint(0x8a988e);
         this.t3 = this.add.bitmapText(2*textSpacer, 6*textSpacer, 'gem', 'Tutorial', 18).setOrigin(0,0).setTint(0x8a988e);
         this.t4 = this.add.bitmapText(2*textSpacer, 8*textSpacer, 'gem', 'Credits', 18).setOrigin(0,0).setTint(0x8a988e);
         this.add.bitmapText(centerX, centerY+4.5*textSpacer,'gem','(Press Up Arrown and Down Arrow to pick a option.)',14).setOrigin(0.5).setTint(0xa83232);

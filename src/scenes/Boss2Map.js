@@ -185,6 +185,10 @@ class Boss2Map extends Phaser.Scene {
                 this.monster1.destroyed = true;
                 this.monster1.destroy();
                 level += 1;
+                // restore hp
+                if (hp<max_hp){
+                    hp = max_hp;
+                }
                 this.rd = Math.round(Math.random()*2);
                 console.log(this.rd);
                 if(this.rd ==0){
@@ -221,6 +225,10 @@ class Boss2Map extends Phaser.Scene {
         this.bgm.play();
         this.bgm.setVolume(0.5);
         this.sound.play('gameover');
+        // restore hp
+        if (hp<max_hp){
+            hp = max_hp;
+        }
 
     }
 
