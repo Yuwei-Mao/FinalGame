@@ -185,24 +185,7 @@ class Boss2Map extends Phaser.Scene {
                 this.sound.play('ending');
                 this.monster1.destroyed = true;
                 this.monster1.destroy();
-<<<<<<< HEAD
-                level += 1;
-                // restore hp
-                if (hp<max_hp){
-                    hp = max_hp;
-                }
-                this.rd = Math.round(Math.random()*2);
-                console.log(this.rd);
-                if(this.rd ==0){
-                    this.scene.start('map2Scene');
-                }else if(this.rd ==1){
-                    this.scene.start('map3Scene');
-                }else{
-                    this.scene.start('map1Scene');
-                }
-=======
                 this.scene.start('talking6Scene');
->>>>>>> 4f30003cd77287062530a7cb3a2712f06284a489
             }         
         },null, this);
 
